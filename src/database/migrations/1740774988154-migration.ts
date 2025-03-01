@@ -17,7 +17,8 @@ export class Migration1740774988154 implements MigrationInterface {
           },
           {
             name: 'jobId',
-            type: 'uuid',
+            type: 'varchar',
+            length: '255',
             isUnique: true,
           },
           {

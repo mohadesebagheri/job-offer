@@ -13,7 +13,7 @@ export default () => ({
     port: parseInt(process.env.DB_PORT ?? '3000'),
     synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
     migrationsRun: false,
-    migrations: ['src/modules/database/migrations/*-migration.ts'],
+    migrations: ['src/database/migrations/*-migration.ts'],
     logging: false,
   },
   accountBasedBlockchain: {

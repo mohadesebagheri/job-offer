@@ -4,10 +4,16 @@ import ProviderError from 'src/exceptions/provider.exception';
 import { UtilsService } from 'src/utils/utils.service';
 import { jobMappings } from './config/mapping';
 import { JobDTO } from './dto/job-offer.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { JobOffer } from './job-offer.entity';
+import { JobOfferRepository } from './job-offers.repository';
 
 @Injectable()
 export class JobOffersService {
-  constructor(private readonly utilsService: UtilsService) {}
+  constructor(
+    private readonly utilsService: UtilsService, 
+    @InjectRepository(JobOffer)
+    private readonly jobOfferRepository: JobOfferRepository) {}
   private axios = axios.create({
     baseURL: 'https://assignment.devotel.io/api',
   });
@@ -43,5 +49,10 @@ export class JobOffersService {
     })
 
     return result;
+  }
+
+  public async getJobOffers(title, salaryMin, salaryMax) {
+    const offers = await this.jobOfferRepository.getJobOffers(title, salaryMin, salaryMax)
+    return offers
   }
 }
